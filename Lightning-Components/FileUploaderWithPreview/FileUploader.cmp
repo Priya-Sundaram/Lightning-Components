@@ -1,0 +1,19 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" 
+                access="global" controller="FileUploaderController">
+    <aura:attribute name="accept" type="List" default="['.csv']"/>
+    <aura:attribute name="disabled" type="Boolean" default="false"/>
+    <aura:attribute name="recId" type="String" default="{!v.recordId}"/>
+    <aura:attribute name="filesList" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <lightning:fileUpload  name="fileUploader"
+                          label= "Upload Files"
+                          accept="{!v.accept}"
+                          disabled="{!v.disabled}"
+                          recordId="{!v.recId}"
+                          onuploadfinished="{! c.handleUploadFinished }"/><br/>
+    
+    
+    <aura:iteration items="{!v.filesList}" var="files">   
+        <lightning:fileCard fileId="{!files.ContentDocument.Id}" description="{!files.ContentDocument.Title}"/> <br/>
+    </aura:iteration>
+</aura:component>
